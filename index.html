@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPSC 2027 Prep Tracker + Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(90deg, #004080 0%, #0066cc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 30px;
+      box-shadow: 0 4px 10px rgb(0 0 0 / 0.3);
+      color: white;
+    }
+
+    header img {
+      height: 100px;
+      margin-right: 15px;
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 40px auto 60px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgb(0 0 0 / 0.1);
+      padding: 35px 40px 50px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    main:hover {
+      box-shadow: 0 10px 35px rgb(0 0 0 / 0.15);
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #004080;
+      margin-bottom: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    ul {
+      padding-left: 24px;
+    }
+
+    .task-list,
+    .deadline-list,
+    .book-list,
+    .tips-list {
+      list-style: none;
+      padding: 0;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .task-list li,
+    .deadline-list li,
+    .book-list li,
+    .tips-list li {
+      background: #f0f5ff;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      padding: 16px 22px;
+      border-radius: 8px;
+      box-shadow: 2px 3px 7px rgb(0 102 204 / 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: background-color 0.25s ease;
+    }
+
+    .task-list li:hover,
+    .deadline-list li:hover,
+    .book-list li:hover,
+    .tips-list li:hover {
+      background-color: #dceaff;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #95a5a6;
+      font-style: italic;
+    }
+
+    button,
+    .toggle-btn {
+      background: #0066cc;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.95rem;
+      padding: 7px 16px;
+      margin-left: 12px;
+      letter-spacing: 0.7px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0, 102, 204, 0.45);
+      user-select: none;
+    }
+
+    button:hover,
+    .toggle-btn:hover {
+      background: #004a99;
+      box-shadow: 0 4px 10px rgba(0, 74, 153, 0.6);
+    }
+
+    input[type="text"] {
+      width: 65%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1.8px solid #a0b8ff;
+      font-size: 1.1rem;
+      font-weight: 400;
+      transition: border-color 0.3s ease;
+      box-shadow: inset 1px 1px 6px rgb(160 184 255 / 0.3);
+      outline-offset: 2px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #004a99;
+      box-shadow: 0 0 7px #004a99;
+      outline: none;
+    }
+
+    .month-grid,
+    .book-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .month-block,
+    .book-block {
+      background: #eaf3ff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgb(0 102 204 / 0.2);
+      padding: 22px 26px;
+      flex-basis: 30%;
+      min-width: 280px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .month-block:hover,
+    .book-block:hover {
+      box-shadow: 0 6px 24px rgb(0 102 204 / 0.4);
+    }
+
+    .month-block h4,
+    .book-block h4 {
+      margin: 0 0 16px 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #003366;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      box-shadow: 0 3px 8px rgb(0 102 204 / 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #aac6ff;
+    }
+
+    th,
+    td {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    th {
+      background-color: #d0e1ff;
+      color: #004080;
+    }
+
+    .toggle-section {
+      margin-bottom: 20px;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    @media (max-width: 990px) {
+      main {
+        width: 95%;
+        padding: 25px 15px 40px;
+      }
+
+      .month-grid,
+      .book-grid {
+        flex-direction: column;
+      }
+
+      .month-block,
+      .book-block {
+        flex-basis: 100%;
+        min-width: auto;
+      }
+
+      header {
+        flex-direction: column;
+        padding: 20px 15px;
+      }
+
+      header img {
+        margin: 0 0 12px 0;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="https://raw.githubusercontent.com/hdpngworld/HPW/main/uploads/650e867fa2157-l.png" alt="UPSC Logo" />
+    <h1>UPSC Civil Services 2027</h1>
+  </header>
+  <main>
+    <section class="section">
+      <h2>Daily Study Tasks</h2>
+      <ul id="dailyTasks" class="task-list"></ul>
+      <form onsubmit="addTask(event)">
+        <input type="text" id="taskInput" placeholder="Add your custom task..." />
+        <button type="submit">Add</button>
+      </form>
+    </section>
+    <section class="section">
+      <h2>Milestones & Deadlines</h2>
+      <ul id="deadlines" class="deadline-list"></ul>
+    </section>
+
+    <section class="section">
+      <h2>Month-wise Study Plan</h2>
+      <div class="month-grid" id="monthPlan"></div>
+    </section>
+
+    <section class="section">
+      <div class="toggle-section">
+        <button id="toggleBookList" class="toggle-btn">Show/Hide Booklist</button>
+      </div>
+      <table id="bookTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Recommended Books</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="bookList"></tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="toggle-section">
+        <button id="toggleTips" class="toggle-btn">Show/Hide Study Tips</button>
+      </div>
+      <ul id="tipsList" class="tips-list" style="display:none;"></ul>
+    </section>
+  </main>
+
+  <script>
+    // Data remains unchanged from previous
+
+    const defaultDailyTasks = [
+      { task: "6:00 AM - 7:30 AM: Newspaper + Current Affairs + Notes", done: false },
+      { task: "8:00 AM - 11:00 AM: GS Subject Study", done: false },
+      { task: "11:15 AM - 12:15 PM: CSAT / Optional Subject", done: false },
+      { task: "1:00 PM - 2:00 PM: Revision / Answer Writing Practice", done: false },
+      { task: "4:00 PM - 6:00 PM: Optional Subject Intensive Study", done: false },
+      { task: "7:00 PM - 8:00 PM: Evening Revision + Quick Tests", done: false },
+      { task: "9:00 PM - 10:00 PM: Essay Practice / Mains Question Writing", done: false }
+    ];
+
+    const deadlinesData = [
+      { title: "Complete NCERTs + Basics", date: "2026-01-31" },
+      { title: "1st Reading of GS Standard Books", date: "2026-07-31" },
+      { title: "Begin Answer Writing Practice", date: "2026-07-01" },
+      { title: "Partial Completion of Optional Subject", date: "2026-10-15" },
+      { title: "Start Prelims Test Series", date: "2026-08-01" },
+      { title: "Complete Optional Subject", date: "2027-01-15" },
+      { title: "Begin Ethics and Essay Preparation", date: "2026-11-01" },
+      { title: "Final Prelims Revision", date: "2027-02-01" },
+      { title: "Prelims Exam", date: "2027-06-04" }
+    ];
+
+    const monthPlanData = [
+      {
+        month: "Nov 2025 - Jan 2026", topics: [
+          "Complete NCERTs from Class 6 to 12 (History, Polity, Geography, Science)",
+          "Develop daily Newspaper + Current Affairs note-making habit",
+          "Begin Optional subject basics and collect resources"
+        ]
+      },
+      {
+        month: "Feb - Apr 2026", topics: [
+          "Start Standard GS books (Laxmikant - Polity, Spectrum - History, GC Leong - Geography, Ramesh Singh - Economy)",
+          "Continue Optional subject reading and notes",
+          "Practice Prelims MCQs on covered topics"
+        ]
+      },
+      {
+        month: "May - Jul 2026", topics: [
+          "Complete 1st round GS reading",
+          "Begin daily answer writing practice",
+          "Integrate current affairs with GS subjects"
+        ]
+      },
+      {
+        month: "Aug - Oct 2026", topics: [
+          "2nd round Revision of GS subjects",
+          "Advance Optional preparation (>50%)",
+          "Increase prelims test frequency; weekly essay practice"
+        ]
+      },
+      {
+        month: "Nov 2026 - Jan 2027", topics: [
+          "Complete Optional syllabus",
+          "Mock test analysis, ethics and essay prep",
+          "Revise weak topics"
+        ]
+      },
+      {
+        month: "Feb - Apr 2027", topics: [
+          "Final Prelims revision, full-length mocks",
+          "CSAT strengthening",
+          "Revision with flashcards & quick notes"
+        ]
+      },
+      {
+        month: "May 2027", topics: [
+          "Prelims Exam (June 2027, expected)",
+          "Light revision and rest post exam"
+        ]
+      }
+    ];
+
+    const bookListData = [
+      { subject: "Polity", book: "Indian Polity by M. Laxmikanth", notes: "Must read and revise multiple times." },
+      { subject: "Modern History", book: "Spectrum's Modern India, Bipin Chandra", notes: "Focus on freedom movement and timelines." },
+      { subject: "Ancient & Medieval History", book: "NCERT Ancient & Medieval, Satish Chandra", notes: "Clear basics and timelines." },
+      { subject: "Geography", book: "GC Leong Physical + Human Geography & NCERTs", notes: "Static + dynamic topics with atlas." },
+      { subject: "Economy", book: "Indian Economy by Ramesh Singh", notes: "Conceptual clarity and schemes." },
+      { subject: "Environment", book: "Shankar IAS Environment Book, NCERT Geography", notes: "Concepts & current issues." },
+      { subject: "Science & Tech", book: "NCERT Science 6-10 & Ravi Agrahari Science & Tech", notes: "Focus on concepts & updates." },
+      { subject: "Ethics", book: "Lexicon for Ethics by Niraj Kumar", notes: "Case studies & theories." },
+      { subject: "Art & Culture", book: "Indian Art & Culture by Nitin Singhania", notes: "Important for prelims and mains." },
+      { subject: "IR", book: "Vinay Kumar Malhotra or similar", notes: "Static combined with current affairs." },
+      { subject: "CSAT", book: "RS Aggarwal Quant & Reasoning", notes: "Practice basics thoroughly." }
+    ];
+
+    const tipsData = [
+      "First read the books fully to understand concepts.",
+      "Make concise bullet notes in your own words on 2nd reading.",
+      "Use notes for revision and update with current affairs.",
+      "Revise topics regularly (weekly/monthly).",
+      "Link current affairs with static syllabus.",
+      "Practice answer writing & previous year questions.",
+      "Use diagrams, tables, mnemonics.",
+      "Stick to limited trusted books. Avoid excess resources.",
+      "Follow a structured plan strictly.",
+      "Maintain good health with regular breaks."
+    ];
+
+    function renderDailyTasks() {
+      let tasks = JSON.parse(localStorage.getItem("dailyTasks")) || defaultDailyTasks;
+      const list = document.getElementById("dailyTasks");
+      list.innerHTML = "";
+      tasks.forEach((task, idx) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="${task.done ? "done" : ""}">${task.task}</span>
+                        <button onclick="toggleTask(${idx})">${task.done ? "Undo" : "Done"}</button>
+                        <button onclick="deleteTask(${idx})">Delete</button>`;
+        list.appendChild(li);
+      });
+    }
+
+    function addTask(e) {
+      e.preventDefault();
+      let tasks = JSON.parse(localStorage.getItem("dailyTasks")) || defaultDailyTasks;
+      const val = document.getElementById("taskInput").value.trim();
+      if (val) {
+        tasks.push({ task: val, done: false });
+        localStorage.setItem("dailyTasks", JSON.stringify(tasks));
+        document.getElementById("taskInput").value = "";
+        renderDailyTasks();
+      }
+    }
+
+    function toggleTask(idx) {
+      let tasks = JSON.parse(localStorage.getItem("dailyTasks")) || defaultDailyTasks;
+      tasks[idx].done = !tasks[idx].done;
+      localStorage.setItem("dailyTasks", JSON.stringify(tasks));
+      renderDailyTasks();
+    }
+
+    function deleteTask(idx) {
+      let tasks = JSON.parse(localStorage.getItem("dailyTasks")) || defaultDailyTasks;
+      tasks.splice(idx, 1);
+      localStorage.setItem("dailyTasks", JSON.stringify(tasks));
+      renderDailyTasks();
+    }
+
+    function renderDeadlines() {
+      const container = document.getElementById("deadlines");
+      container.innerHTML = "";
+      deadlinesData.forEach(d => {
+        const li = document.createElement("li");
+        li.innerHTML = `<b>${d.title}</b> — <span style="color:#004080">${d.date}</span>`;
+        container.appendChild(li);
+      });
+    }
+
+    function renderMonthPlan() {
+      const container = document.getElementById("monthPlan");
+      container.innerHTML = "";
+      monthPlanData.forEach(({ month, topics }) => {
+        const div = document.createElement("div");
+        div.className = "month-block";
+        div.innerHTML = `<h4>${month}</h4><ul>${topics.map(t => `<li>${t}</li>`).join("")}</ul>`;
+        container.appendChild(div);
+      });
+    }
+
+    function renderBookList() {
+      const tbody = document.getElementById("bookList");
+      tbody.innerHTML = "";
+      bookListData.forEach(({ subject, book, notes }) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${subject}</td><td>${book}</td><td>${notes}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderTips() {
+      const list = document.getElementById("tipsList");
+      list.innerHTML = "";
+      tipsData.forEach(tip => {
+        const li = document.createElement("li");
+        li.textContent = tip;
+        list.appendChild(li);
+      });
+    }
+
+    // Toggle Booklist and Tips display
+    document.getElementById("toggleBookList").addEventListener("click", () => {
+      const el = document.getElementById("bookTable");
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "table" : "none";
+    });
+
+    document.getElementById("toggleTips").addEventListener("click", () => {
+      const el = document.getElementById("tipsList");
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+    });
+
+    // Initialize renders
+    renderDailyTasks();
+    renderDeadlines();
+    renderMonthPlan();
+    renderBookList();
+    renderTips();
+  </script>
+</body>
+
+</html>
